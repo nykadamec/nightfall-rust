@@ -1,0 +1,62 @@
+name: macOS Remote Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_target:
+        description: "Which binaries to build (all, game, editor)"
+        required: false
+        default: "all"
+        type: choice
+        options:
+          - all
+          - game
+          - editor
+
+jobs:
+  build-macos:
+    runs-on: macos-14
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+          components: rustfmt, clippy
+
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run workspace unit tests
+        run: cargo test --workspace
+
+      - name: Build release binaries
+        run: |
+          if [ "${{ inputs.build_target }}" = "game" ]; then
+            cargo build --release --target aarch64-apple-darwin --bin nightfall-game
+          elif [ "${{ inputs.build_target }}" = "editor" ]; then
+            cargo build --release --target aarch64-apple-darwin --bin nightfall-editor
+          else
+            cargo build --release --target aarch64-apple-darwin --bin nightfall-game --bin nightfall-editor
+          fi
+
+      - name: Stage artifacts
+        run: |
+          mkdir -p dist
+          if [ -f target/aarch64-apple-darwin/release/nightfall-game ]; then
+            cp target/aarch64-apple-darwin/release/nightfall-game dist/
+          fi
+          if [ -f target/aarch64-apple-darwin/release/nightfall-editor ]; then
+            cp target/aarch64-apple-darwin/release/nightfall-editor dist/
+          fi
+          ls -lh dist/
+
+      - name: Upload macOS arm64 binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightfall-macos-arm64
+          path: dist/*
+          retention-days: 7

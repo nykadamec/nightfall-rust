@@ -1,0 +1,10 @@
+[
+  {
+    "id": "lantern_bolt",
+    "name": "Lantern Bolt",
+    "damage": 18.0,
+    "cooldown_s": 0.65,
+    "projectile_speed": 420.0,
+    "sprite_path": "sprites/lantern_bolt.png"
+  }
+]

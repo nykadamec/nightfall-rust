@@ -1,0 +1,20 @@
+[
+  {
+    "id": "shadow_crawler",
+    "name": "Shadow Crawler",
+    "hp": 30.0,
+    "speed": 95.0,
+    "damage": 10.0,
+    "xp_value": 5,
+    "sprite_path": "sprites/shadow_crawler.png"
+  },
+  {
+    "id": "hollow_knight",
+    "name": "Hollow Knight",
+    "hp": 90.0,
+    "speed": 65.0,
+    "damage": 22.0,
+    "xp_value": 15,
+    "sprite_path": "sprites/hollow_knight.png"
+  }
+]

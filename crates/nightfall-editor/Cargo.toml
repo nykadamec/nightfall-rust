@@ -1,0 +1,11 @@
+[package]
+name = "nightfall-editor"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+gpui-kit = "0.10.0"
+nightfall-data = { path = "../nightfall-data" }
+serde_json.workspace = true
+ureq = { version = "2.12", features = ["json"] }

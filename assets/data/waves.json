@@ -1,0 +1,14 @@
+[
+  {
+    "start_time_s": 0.0,
+    "duration_s": 60.0,
+    "spawn_interval_s": 1.2,
+    "enemy_ids": ["shadow_crawler"]
+  },
+  {
+    "start_time_s": 60.0,
+    "duration_s": 120.0,
+    "spawn_interval_s": 0.8,
+    "enemy_ids": ["shadow_crawler", "hollow_knight"]
+  }
+]
